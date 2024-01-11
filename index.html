@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background: #000;
+      animation: colorChange 10s infinite alternate;
+    }
+    
+    @keyframes colorChange {
+      0% {
+        background: #000;
+      }
+      50% {
+        background: #4B0082; /* Deep purple color */
+      }
+      100% {
+        background: #000;
+      }
+    }
+
+    .todo-container {
+      max-width: 600px;
+      margin: 50px auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #todoTitle {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #fff;
+      opacity: 0;
+      animation: fadeInOut 5s ease-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% {
+        opacity: 0;
+      }
+      10%, 90% {
+        opacity: 1;
+      }
+    }
+
+    input[type="text"] {
+      width: calc(100% - 40px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      padding: 8px 15px;
+      background: #4B0082;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1 id="todoTitle">To-Do List</h1>
+    <input type="text" id="todoInput" placeholder="Add new item">
+    <button onclick="addItem()">Add</button>
+    <ul id="todoList" onclick="deleteItem(event)">
+    </ul>
+  </div>
+
+  <script>
+    function addItem() {
+      var input = document.getElementById('todoInput');
+      var list = document.getElementById('todoList');
+
+      if (input.value !== '') {
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(input.value));
+
+        var deleteButton = document.createElement('button');
+        deleteButton.appendChild(document.createTextNode('Delete'));
+        deleteButton.classList.add('delete-btn');
+        li.appendChild(deleteButton);
+
+        list.appendChild(li);
+        input.value = '';
+      }
+    }
+
+    function deleteItem(event) {
+      var element = event.target;
+      if (element.classList.contains('delete-btn')) {
+        var li = element.parentElement;
+        li.remove();
+      }
+    }
+  </script>
+</body>
+</html>
